@@ -492,6 +492,7 @@ static inline bool attempt_existing_hook(struct game_capture *gc)
 	if (gc->hook_restart) {
 		debug("existing hook found, signaling process: %s",
 				gc->config.executable);
+		gc->global_hook_info->window = gc->next_window;
 		SetEvent(gc->hook_restart);
 		return true;
 	}

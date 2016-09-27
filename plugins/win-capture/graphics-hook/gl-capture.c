@@ -535,9 +535,16 @@ static bool gl_shmem_init(HWND window)
 static int gl_init(HDC hdc)
 {
 	HWND window = WindowFromDC(hdc);
+
 	int ret = INIT_FAILED;
 	bool success = false;
 	RECT rc = {0};
+
+	if (global_hook_info->window != window)
+	{
+		SetEvent(signal_restart);
+		return ret;
+	}
 
 	if (darkest_dungeon_fix) {
 		data.base_cx = 1920;
